@@ -45,3 +45,35 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
     >>> Escriba su respuesta a partir de este punto <<<
 */
 
+CREATE TABLE tabla  (
+    c1 INT,
+    c2 STRING,
+    c3 INT,
+    c4 DATE,
+    c5 ARRAY<CHAR(1)>,
+    c6 MAP<STRING, INT>)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+COLLECTION ITEMS TERMINATED BY ':'
+MAP KEYS TERMINATED BY '#' LINES TERMINATED BY '\n';
+
+LOAD DATA LOCAL INPATH 'data0.csv' INTO TABLE Tabla;
+
+CREATE tabla2 AUX AS
+SELECT
+    YEAR(c4) pt4, pt0
+FROM
+    TP_5
+LATERAL VIEW
+    EXPLODE(c5) pt01 as pt0;
+
+INSERT OVERWRITE LOCAL DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+
+SELECT
+    pt4, pt0, COUNT(1) Cant
+FROM
+    tabla2
+GROUP BY
+    pt4, pt0
+ORDER BY
+    pt4, pt0;
