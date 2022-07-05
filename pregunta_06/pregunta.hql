@@ -45,4 +45,11 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+DROP TABLE IF EXISTS data;
+
+CREATE TABLE data AS 
+SELECT UPPER(CONCAT_WS(":", c5)) AS upperletras
+FROM tbl0;
+
+INSERT OVERWRITE LOCAL DIRECTORY 'output'
 
