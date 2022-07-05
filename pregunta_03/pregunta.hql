@@ -13,18 +13,18 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-DROP TABLE IF EXISTS data;
 
-CREATE TABLE docs (letra STRING,fecha STRING,valor INT)
-ROW FORMAT DELIMITED
-FIELDS TERMINATED BY '\t';
+DROP TABLE IF EXISTS tabla;
+CREATE TABLE  tabla (
+    letra STRING,
+    fecha DATE,
+    valor INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
 
-LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE data;
+LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE tabla;
 
-INSERT OVERWRITE LOCAL DIRECTORY 'output'
+INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
-SELECT DISTINCT valor FROM docs
-ORDER BY valor ASC
-LIMIT 5;
+SELECT DISTINCT(valor) FROM tabla ORDER BY valor LIMIT 5;
 
 
