@@ -81,4 +81,13 @@ FROM
     tabla1
 LATERAL VIEW
     EXPLODE(c4) List;
+    INSERT OVERWRITE LOCAL DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT
+    Dt1.*
+FROM
+    tabla2 Dt0, tabla3 Dt1
+WHERE
+    Dt0.c1 = Dt1.c1 AND Dt0.key = Dt1.key;
+
 
