@@ -46,3 +46,23 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
     >>> Escriba su respuesta a partir de este punto <<<
 */
 
+DROP TABLE IF EXISTS tabla; 
+DROP TABLE IF EXISTS palabras; 
+CREATE TABLE tabla ( 
+    c1 INT, 
+    c2 STRING, 
+    c3 INT, 
+    c4 STRING, 
+    c5 ARRAY<CHAR(1)>,  
+    c6 MAP<STRING, INT> 
+) 
+ROW FORMAT DELIMITED  
+FIELDS TERMINATED BY ',' 
+COLLECTION ITEMS TERMINATED BY ':' 
+MAP KEYS TERMINATED BY '#' 
+LINES TERMINATED BY '\n'; 
+LOAD DATA LOCAL INPATH 'data0.csv' INTO TABLE tabla; 
+ 
+CREATE TABLE palabras AS SELECT c2, c1 FROM tabla; 
+ 
+
