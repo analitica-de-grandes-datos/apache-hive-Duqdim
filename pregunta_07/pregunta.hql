@@ -46,12 +46,10 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
     >>> Escriba su respuesta a partir de este punto <<<
 */
 
-DROP TABLE IF EXISTS data;
-
-CREATE TABLE data AS 
-SELECT c2, CONCAT_WS(":", COLLECT_LIST(CAST(c1 AS STRING)))
+DROP TABLE IF EXISTS counter;
+CREATE TABLE counter AS SELECT c2, 
+concat_ws(':',collect_list(cast(c1 as string))) as numbers
 FROM tbl0 GROUP BY c2;
-
-INSERT OVERWRITE LOCAL DIRECTORY 'output'
+INSERT OVERWRITE LOCAL DIRECTORY './output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
-SELECT * FROM data ORDER BY c2;
+SELECT * FROM counter;
